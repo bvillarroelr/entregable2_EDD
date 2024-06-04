@@ -70,20 +70,43 @@ int main() {
     // carga de datos hacia ambas tablas
     loadCSVData("universities_followers.csv", tabla1, tabla2, 5);
 
-    // impresión de los datos de la tabla 1
+    /* impresión de los datos de la tabla 1
     for (const auto& pair : tabla1) {
         std::cout << "UserID(key): " << pair.first 
                   << ", UserName: " << pair.second.user_name 
                   << ", University: " << pair.second.university 
                   << ", CreatedAt: " << pair.second.created_at << std::endl;
     }
-
-    // impresión de los datos de la tabla 2
+	*/
+    /* impresión de los datos de la tabla 2
     for (const auto& pair : tabla2) {
         std::cout << "UserName(key): " << pair.first 
                   << ", UserID: " << pair.second.user_id 
                   << ", University: " << pair.second.university 
                   << ", CreatedAt: " << pair.second.created_at << std::endl;
+    }
+	*/
+    // Búsqueda en tabla1 usando user_id
+    long long search_id = 414942137;
+    auto it1 = tabla1.find(search_id);
+
+    if (it1 != tabla1.end()) {
+        std::cout << "Found user with ID " << search_id << ": " 
+                  << it1->second.user_name << ", " 
+                  << it1->second.university << std::endl;
+    } else {
+        std::cout << "User with ID " << search_id << " not found." << std::endl;
+    }
+    // Búsqueda en tabla2 usando user_name
+    std::string search_name = "freeoftheories";
+    auto it2 = tabla2.find(search_name);
+
+    if (it2 != tabla2.end()) {
+        std::cout << "Found user with name " << search_name << ": " 
+                  << it2->second.user_id << ", " 
+                  << it2->second.university << std::endl;
+    } else {
+        std::cout << "User with name " << search_name << " not found." << std::endl;
     }
 
     return 0;
