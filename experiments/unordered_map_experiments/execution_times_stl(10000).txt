@@ -1,0 +1,40 @@
+Ejecución 1:
+Tiempo de inscersión de: 0.012963 segundos
+Ejecución 2:
+Tiempo de inscersión de: 0.0128845 segundos
+Ejecución 3:
+Tiempo de inscersión de: 0.0124588 segundos
+Ejecución 4:
+Tiempo de inscersión de: 0.0131983 segundos
+Ejecución 5:
+Tiempo de inscersión de: 0.0130023 segundos
+Ejecución 6:
+Tiempo de inscersión de: 0.0130656 segundos
+Ejecución 7:
+Tiempo de inscersión de: 0.0129213 segundos
+Ejecución 8:
+Tiempo de inscersión de: 0.0136919 segundos
+Ejecución 9:
+Tiempo de inscersión de: 0.0133176 segundos
+Ejecución 10:
+Tiempo de inscersión de: 0.0128307 segundos
+Ejecución 11:
+Tiempo de inscersión de: 0.0137176 segundos
+Ejecución 12:
+Tiempo de inscersión de: 0.0129591 segundos
+Ejecución 13:
+Tiempo de inscersión de: 0.0122675 segundos
+Ejecución 14:
+Tiempo de inscersión de: 0.0127615 segundos
+Ejecución 15:
+Tiempo de inscersión de: 0.0129889 segundos
+Ejecución 16:
+Tiempo de inscersión de: 0.0130744 segundos
+Ejecución 17:
+Tiempo de inscersión de: 0.0139275 segundos
+Ejecución 18:
+Tiempo de inscersión de: 0.013386 segundos
+Ejecución 19:
+Tiempo de inscersión de: 0.0135034 segundos
+Ejecución 20:
+Tiempo de inscersión de: 0.0134921 segundos

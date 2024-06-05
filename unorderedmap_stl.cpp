@@ -100,7 +100,7 @@ long long generateRandom(long long min, long long max) {
 int main() {
     std::unordered_map<long long, u_followers> tabla1;	// tabla con user_id como clave
     std::unordered_map<std::string, u_followers> tabla2; // tabla con user_name como clave 
-    int cantidad_inserciones = 1000;
+    int cantidad_inserciones = 20000;
 
     auto start = std::chrono::high_resolution_clock::now();
 
