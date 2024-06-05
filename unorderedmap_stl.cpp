@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <random>
 #include <unordered_map>
 
 struct u_followers {
@@ -62,13 +63,45 @@ void loadCSVData(const std::string& filename,
         tabla2[follower.user_name] = follower;
     }
 }
+// Funcion que busca un usuario y lo imprime en caso de encontrarlo
+void searchUserID(long long id, std::unordered_map<long long, u_followers> t) {
+    auto it1 = t.find(id);
+
+    if (it1 != t.end()) {
+        std::cout << "Found user with ID " << id << ": " 
+                  << it1->second.user_name << ", " 
+                  << it1->second.university << std::endl;
+    } else {
+        std::cout << "User with ID " << id << " not found." << std::endl;
+    }    ;
+}
+// Funcion que busca un usuario por su noombre y lo imprime en caso de encontrarlo
+void searchUserName(std::string name, std::unordered_map<std::string, u_followers> t) {
+    auto it1 = t.find(name);
+
+    if (it1 != t.end()) {
+        std::cout << "Found user with name " << name << ": " 
+                  << it1->second.user_name << ", " 
+                  << it1->second.university << std::endl;
+    } else {
+        std::cout << "User with name " << name << " not found." << std::endl;
+    }    ;
+}
+
+long long generateRandom(long long min, long long max) {
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<long long> dis(min, max);
+    return dis(gen);
+}
+
 
 int main() {
     std::unordered_map<long long, u_followers> tabla1;	// tabla con user_id como clave
     std::unordered_map<std::string, u_followers> tabla2; // tabla con user_name como clave 
-
+    
     // carga de datos hacia ambas tablas
-    loadCSVData("universities_followers.csv", tabla1, tabla2, 5);
+    loadCSVData("universities_followers.csv", tabla1, tabla2, 1000);
 
     /* impresión de los datos de la tabla 1
     for (const auto& pair : tabla1) {
@@ -86,28 +119,9 @@ int main() {
                   << ", CreatedAt: " << pair.second.created_at << std::endl;
     }
 	*/
-    // Búsqueda en tabla1 usando user_id
-    long long search_id = 414942137;
-    auto it1 = tabla1.find(search_id);
-
-    if (it1 != tabla1.end()) {
-        std::cout << "Found user with ID " << search_id << ": " 
-                  << it1->second.user_name << ", " 
-                  << it1->second.university << std::endl;
-    } else {
-        std::cout << "User with ID " << search_id << " not found." << std::endl;
-    }
-    // Búsqueda en tabla2 usando user_name
-    std::string search_name = "freeoftheories";
-    auto it2 = tabla2.find(search_name);
-
-    if (it2 != tabla2.end()) {
-        std::cout << "Found user with name " << search_name << ": " 
-                  << it2->second.user_id << ", " 
-                  << it2->second.university << std::endl;
-    } else {
-        std::cout << "User with name " << search_name << " not found." << std::endl;
-    }
+    // Búsquedas usando user_id y user_name respectivamente
+    searchUserID(9769796966999, tabla1);
+    searchUserName("freeoftheories", tabla2);
 
     return 0;
 }
