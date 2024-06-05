@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <cmath>
+#include <chrono>
 #include <random>
 #include <unordered_map>
 
@@ -95,13 +96,27 @@ long long generateRandom(long long min, long long max) {
     return dis(gen);
 }
 
-
+// Experimentación
 int main() {
     std::unordered_map<long long, u_followers> tabla1;	// tabla con user_id como clave
     std::unordered_map<std::string, u_followers> tabla2; // tabla con user_name como clave 
-    
+    int cantidad_inserciones = 1000;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
     // carga de datos hacia ambas tablas
-    loadCSVData("universities_followers.csv", tabla1, tabla2, 1000);
+    loadCSVData("universities_followers.csv", tabla1, tabla2, cantidad_inserciones);// último parámetro cantidad de inserciones
+    auto end = std::chrono::high_resolution_clock::now();
+
+    std::chrono::duration<double> duration = end-start;
+    std::cout << "Tiempo de inscersión de: " << duration.count() << " segundos" << std::endl;
+    /* Búsquedas usando user_id y user_name respectivamente
+    searchUserID(9769796966999, tabla1);
+    searchUserName("freeoftheories", tabla2);
+    */
+    return 0;
+}
+// Recursos: https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
 
     /* impresión de los datos de la tabla 1
     for (const auto& pair : tabla1) {
@@ -110,7 +125,7 @@ int main() {
                   << ", University: " << pair.second.university 
                   << ", CreatedAt: " << pair.second.created_at << std::endl;
     }
-	*/
+    */
     /* impresión de los datos de la tabla 2
     for (const auto& pair : tabla2) {
         std::cout << "UserName(key): " << pair.first 
@@ -118,10 +133,4 @@ int main() {
                   << ", University: " << pair.second.university 
                   << ", CreatedAt: " << pair.second.created_at << std::endl;
     }
-	*/
-    // Búsquedas usando user_id y user_name respectivamente
-    searchUserID(9769796966999, tabla1);
-    searchUserName("freeoftheories", tabla2);
-
-    return 0;
-}
+    */
