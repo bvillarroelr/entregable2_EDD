@@ -66,33 +66,18 @@ void loadCSVData(const std::string& filename,
     }
 }
 // Funcion que busca un usuario y lo imprime en caso de encontrarlo
-void searchUserID(long long id, std::unordered_map<long long, u_followers> t) {
-    auto it1 = t.find(id);
-
-    if (it1 != t.end()) {
-        std::cout << "Found user with ID " << id << ": " 
-                  << it1->second.user_name << ", " 
-                  << it1->second.university << std::endl;
-    } else {
-        std::cout << "User with ID " << id << " not found." << std::endl;
-    }    ;
+// Función que busca un usuario y retorna si lo encontró o no
+bool searchUserID(long long id, std::unordered_map<long long, u_followers> t) {
+    return t.find(id) != t.end();
 }
 
-// Funcion que busca un usuario por su noombre y lo imprime en caso de encontrarlo, y retorna si lo encontró o no
-void searchUserName(std::string name, std::unordered_map<std::string, u_followers> t) {
-    auto it1 = t.find(name);
-
-    if (it1 != t.end()) {
-        std::cout << "Found user with name " << name << ": " 
-                  << it1->second.user_id << ", " 
-                  << it1->second.university << std::endl;
-    } else {
-        std::cout << "User with name " << name << " not found." << std::endl;
-    }    ;
+// Función que busca un usuario por su nombre y retorna si lo encontró o no
+bool searchUserName(std::string name, std::unordered_map<std::string, u_followers> t) {
+    return t.find(name) != t.end();
 }
 
 // Experimentación
-int main() {
+int main(int argc, char* argv[]) {
     std::unordered_map<long long, u_followers> tabla1;	// tabla con user_id como clave
     std::unordered_map<std::string, u_followers> tabla2; // tabla con user_name como clave 
     int cantidad_inserciones = 20000;
@@ -106,22 +91,22 @@ int main() {
   //  std::chrono::duration<double> duration = end-start;
   //  std::cout << "Tiempo de inscersión de: " << duration.count() << " segundos" << std::endl;
 
+    int ejecucion = std::stoi(argv[1]); // Obtener el número de ejecución del argumento de línea de comandos
 
-    // test búsqueda (found)
-    // Medición searchID (scientific notation)
+    /* Medición searchID (scientific notation)
     auto start1 = std::chrono::high_resolution_clock::now();
-    searchUserID(scientificToInteger("9.30909872735994E+017"), tabla1);
+    searchUserID(9999999999, tabla1);
     auto end1 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration1 = end1-start1;
-
-    std::cout << "Tiempo de ejecución searchUserID(): " << duration1.count() << " segundos" << std::endl;
+    std::chrono::duration<double> duration1 = end1 - start1;
+    std::cout << ejecucion << ";searchUserID;" << duration1.count() << std::endl;
+    */
     // Medición searchUserName
     auto start2 = std::chrono::high_resolution_clock::now();
-    searchUserName("pasten_pato", tabla2);
+    searchUserName("asdfghk", tabla2);
     auto end2 = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<double> duration2 = end2-start2;
-
-    std::cout << "Tiempo de ejecución searchUserID(): " << duration2.count() << " segundos" << std::endl;
+    std::chrono::duration<double> duration2 = end2 - start2;
+    std::cout << ejecucion << ";searchUserName;" << duration2.count() << std::endl;
+    
     return 0;
 }
 // Recursos: https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
