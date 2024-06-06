@@ -1,10 +1,10 @@
 #!/bin/bash
 
-# Compilar el programa
+# Compilar el programa (se irá cambiando según cada código)
 g++ -o stlexperiment unorderedmap_stl.cpp
 
 # Nombre del archivo de salida
-output_file="execution_times.txt"
+output_file="unorderedmap_search(found).txt"
 
 # Limpiar el archivo de salida antes de comenzar
 > $output_file

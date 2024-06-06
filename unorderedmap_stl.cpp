@@ -49,6 +49,7 @@ void loadCSVData(const std::string& filename,
         // Leer cada campo de la línea
         std::getline(ss, follower.university, ',');
         std::getline(ss, word, ',');
+        // Convierte los user_id que estén en notación científica a enteros redondeados (para que no hayan problemas en la búsqueda)
         follower.user_id = scientificToInteger(word);
         std::getline(ss, follower.user_name, ',');
         std::getline(ss, word, ',');
@@ -76,24 +77,18 @@ void searchUserID(long long id, std::unordered_map<long long, u_followers> t) {
         std::cout << "User with ID " << id << " not found." << std::endl;
     }    ;
 }
-// Funcion que busca un usuario por su noombre y lo imprime en caso de encontrarlo
+
+// Funcion que busca un usuario por su noombre y lo imprime en caso de encontrarlo, y retorna si lo encontró o no
 void searchUserName(std::string name, std::unordered_map<std::string, u_followers> t) {
     auto it1 = t.find(name);
 
     if (it1 != t.end()) {
         std::cout << "Found user with name " << name << ": " 
-                  << it1->second.user_name << ", " 
+                  << it1->second.user_id << ", " 
                   << it1->second.university << std::endl;
     } else {
         std::cout << "User with name " << name << " not found." << std::endl;
     }    ;
-}
-
-long long generateRandom(long long min, long long max) {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<long long> dis(min, max);
-    return dis(gen);
 }
 
 // Experimentación
@@ -102,18 +97,31 @@ int main() {
     std::unordered_map<std::string, u_followers> tabla2; // tabla con user_name como clave 
     int cantidad_inserciones = 20000;
 
-    auto start = std::chrono::high_resolution_clock::now();
+   // auto start = std::chrono::high_resolution_clock::now();
 
     // carga de datos hacia ambas tablas
     loadCSVData("universities_followers.csv", tabla1, tabla2, cantidad_inserciones);// último parámetro cantidad de inserciones
-    auto end = std::chrono::high_resolution_clock::now();
+  //  auto end = std::chrono::high_resolution_clock::now();
 
-    std::chrono::duration<double> duration = end-start;
-    std::cout << "Tiempo de inscersión de: " << duration.count() << " segundos" << std::endl;
-    /* Búsquedas usando user_id y user_name respectivamente
-    searchUserID(9769796966999, tabla1);
-    searchUserName("freeoftheories", tabla2);
-    */
+  //  std::chrono::duration<double> duration = end-start;
+  //  std::cout << "Tiempo de inscersión de: " << duration.count() << " segundos" << std::endl;
+
+
+    // test búsqueda (found)
+    // Medición searchID (scientific notation)
+    auto start1 = std::chrono::high_resolution_clock::now();
+    searchUserID(scientificToInteger("9.30909872735994E+017"), tabla1);
+    auto end1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration1 = end1-start1;
+
+    std::cout << "Tiempo de ejecución searchUserID(): " << duration1.count() << " segundos" << std::endl;
+    // Medición searchUserName
+    auto start2 = std::chrono::high_resolution_clock::now();
+    searchUserName("pasten_pato", tabla2);
+    auto end2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration2 = end2-start2;
+
+    std::cout << "Tiempo de ejecución searchUserID(): " << duration2.count() << " segundos" << std::endl;
     return 0;
 }
 // Recursos: https://www.geeksforgeeks.org/measure-execution-time-function-cpp/
