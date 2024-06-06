@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Compilar el programa
-g++ -o stlexperiment unorderedmap_stl.cpp
+g++ -o stlexperiment hashing_cerrado.cpp
 
 # Nombre del archivo de salida
-output_file="searchUserName(notfound)_STL.csv"
+output_file="searchUserName(found)_hashing_cerrado.csv"
 
 # Limpiar el archivo de salida antes de comenzar y agregar encabezado
 echo "ejecucion;metodo;tiempo_segundos" > $output_file
