@@ -4,7 +4,7 @@
 g++ -o stlexperiment hashing_cerrado.cpp
 
 # Nombre del archivo de salida
-output_file="searchUserName(found)_hashing_cerrado.csv"
+output_file="insertion(20000)_hashing_cerrado.csv"
 
 # Limpiar el archivo de salida antes de comenzar y agregar encabezado
 echo "ejecucion;metodo;tiempo_segundos" > $output_file

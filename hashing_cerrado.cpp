@@ -159,12 +159,16 @@ int main(int argc, char* argv[]) {
 
     HashTableClosed<long long, u_followers> tabla1(tableSize);  // tabla con user_id como clave
     HashTableClosed<std::string, u_followers> tabla2(tableSize); // tabla con user_name como clave 
+    int ejecucion = std::stoi(argv[1]); // Obtener el número de ejecución del argumento de línea de comandos
     int cantidad_inserciones = 20000;
 
     // carga de datos hacia ambas tablas
+    auto start2 = std::chrono::high_resolution_clock::now();
     loadCSVData("universities_followers.csv", tabla1, tabla2, cantidad_inserciones); // último parámetro cantidad de inserciones
+    auto end2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration2 = end2 - start2;
+    std::cout << ejecucion << ";insertion;" << duration2.count() << std::endl;
 
-    int ejecucion = std::stoi(argv[1]); // Obtener el número de ejecución del argumento de línea de comandos
 
     /*Medición searchID (scientific notation)
     auto start1 = std::chrono::high_resolution_clock::now();
@@ -173,12 +177,10 @@ int main(int argc, char* argv[]) {
     std::chrono::duration<double> duration1 = end1 - start1;
     std::cout << ejecucion << ";searchUserID;" << duration1.count() << std::endl;
     */
-    // Medición searchUserName
-    auto start2 = std::chrono::high_resolution_clock::now();
+    /* Medición searchUserName
     tabla2.search("pasten_pato");
-    auto end2 = std::chrono::high_resolution_clock::now();
     std::chrono::duration<double> duration2 = end2 - start2;
     std::cout << ejecucion << ";searchUserName;" << duration2.count() << std::endl;
-
+    */
     return 0;
 }
