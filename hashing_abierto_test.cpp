@@ -45,29 +45,30 @@ int main(int argc, char** argv) {
     std::vector<Usuario> Usuarios = readCSV("universities_followers.csv");
 
     // Si no hay suficientes argumentos, terminamos la ejecución
-    if(argc < 2) {
-        std::cerr << "Usage: " << argv[0] << " <cantidad de elementos>" << std::endl;
+    if(argc < 3) {
+        std::cerr << "Usage: " << argv[0] << " <cantidad de elementos> <ejecucion>" << std::endl;
         exit(1);
     }
 
     int n = atoi(argv[1]); // Almacenará la cantidad de elementos
+    int ejecucion = atoi(argv[2]); // Número de ejecución
 
-    // Abrimos el archivo .csv en modo de escritura
-    std::ofstream file("Resultados_String_1000.csv"); // Cambiar el nombre del archivo .csv aca cada que haces un archivo cambias el numero para que nos lo separe sino tambien lo arreglo despues.
+    // Creamos n usuarios y los insertamos en la tabla hash
+    HashAbiertoString hashTable(n); // Crearemos una tabla de hash con n elementos
 
-    file << "ejecucion;metodo;tiempo_segundos\n"; // Escribimos la cabecera del archivo .csv
+  //  auto start = std::chrono::high_resolution_clock::now();
+    for(int i = 1; i <= n; i++) {
+        Usuario Usuario = Usuarios[i];
+        hashTable.insert(Usuario.UsuarioName, Usuario);
+    }
+   // auto end = std::chrono::high_resolution_clock::now();
+   // std::chrono::duration<double> duration = end - start;
 
-        HashAbiertoString hashTable(n); // Crearemos una tabla de hash con n elementos
-
-        // Creamos n usuarios y los insertamos en la tabla hash
-        auto start = std::chrono::high_resolution_clock::now();
-        for(int i = 1; i <= n; i++) {
-            Usuario Usuario = Usuarios[i];
-            hashTable.insert(Usuario.UsuarioName, Usuario);
-        }
-        auto end = std::chrono::high_resolution_clock::now();
-        std::chrono::duration<double> duration = end - start;
-
+    /* Escribimos los resultados en la salida estándar
+    std::cout << ejecucion << ";insert;" << duration.count() << "\n";
+    */
+    return 0;
+}
 /*
         // Buscamos cada usuario en la tabla hash
         start = std::chrono::high_resolution_clock::now();
@@ -81,18 +82,9 @@ int main(int argc, char** argv) {
         // Buscamos de usuario inecistentes en la tabla hash
         start = std::chrono::high_resolution_clock::now();
         for(int i = 1; i <= n; i++) {
-        	Usuario Usuario = Usuarios[i];
+            Usuario Usuario = Usuarios[i];
             hashTable.search(-Usuario.UsuarioName, Usuario);
         }
         end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<double> Busqueda_f = end - start;
 */
-        // Escribimos los resultados en el archivo .csv
-        
-        file << "HashAbiertoInt" << ";" << n << ";insert;" << duration.count() << "\n";
-        //file << "HashAbiertoInt" << ";" << n << ";search;" << Busqueda.count() << "\n";  //escribimos el tiempo de busqueda
-        //file << "HashAbiertoInt" << ";" << n << ";search_nouser;" << Busqueda_f.count() << "\n"; //escribimos el tiempo de busqueda de un usuario inexistente
-
-    file.close(); // Cerramos el archivo .csv
-    return 0;
-}
