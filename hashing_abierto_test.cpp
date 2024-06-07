@@ -6,7 +6,7 @@
 #include <chrono>
 
 #include "Usuario.h"
-#include "Hashing_Abierto_String.h"
+#include "Hashing_abierto_string.h"
 #include "Hashing_Abierto.h"
 
 // Función para leer el archivo CSV y retornar un vector de Usuario
@@ -55,10 +55,7 @@ int main(int argc, char** argv) {
     // Abrimos el archivo .csv en modo de escritura
     std::ofstream file("Resultados_String_1000.csv"); // Cambiar el nombre del archivo .csv aca cada que haces un archivo cambias el numero para que nos lo separe sino tambien lo arreglo despues.
 
-    file << "Ejecucion;Metodo;Tiempo_Segundos\n"; // Escribimos la cabecera del archivo .csv
-
-    // Realizamos las pruebas varias veces
-    for (int test = 1; test <= 20; test++) {
+    file << "ejecucion;metodo;tiempo_segundos\n"; // Escribimos la cabecera del archivo .csv
 
         HashAbiertoString hashTable(n); // Crearemos una tabla de hash con n elementos
 
@@ -95,7 +92,6 @@ int main(int argc, char** argv) {
         file << "HashAbiertoInt" << ";" << n << ";insert;" << duration.count() << "\n";
         //file << "HashAbiertoInt" << ";" << n << ";search;" << Busqueda.count() << "\n";  //escribimos el tiempo de busqueda
         //file << "HashAbiertoInt" << ";" << n << ";search_nouser;" << Busqueda_f.count() << "\n"; //escribimos el tiempo de busqueda de un usuario inexistente
-    }
 
     file.close(); // Cerramos el archivo .csv
     return 0;
